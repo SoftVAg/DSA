@@ -11,7 +11,7 @@ public class gcdOfStrings {
     }
     public static String gcd(String str1, String str2){
         for(int i = Math.min(str1.length(),str2.length()); i>=1; i--){
-            if(Solution.valid(str1,str2,i)){
+            if(valid(str1,str2,i)){
                 return str1.substring(0,i);
             }
         }
