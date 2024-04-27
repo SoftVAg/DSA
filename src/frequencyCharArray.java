@@ -12,7 +12,8 @@ public class frequencyCharArray {
         }
         for(int i =0; i<26; i++){
             if(arr[i]!=0){
-                System.out.println(arr[i]);
+                char ch = (char) (i+'a');
+                System.out.println(ch + " = " + arr[i]);
             }
         }
     }
