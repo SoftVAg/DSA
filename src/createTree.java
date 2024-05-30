@@ -36,9 +36,7 @@ public class createTree {
     }
     static int size(Node root){
          if(root==null) return 0;
-         int l = size(root.left);
-         int r = size(root.right);
-         return l+r;
+         return size(root.left)+size(root.right)+1;
     }
     static Scanner sc = null;
     public static void main(String[] args) {
