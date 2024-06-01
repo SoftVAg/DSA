@@ -102,6 +102,8 @@ public class createTree {
         if (root == null) return Integer.MAX_VALUE;
         return Math.min(root.data, Math.min(minimumNode(root.left), minimumNode(root.right)));
     }
+
+    
     static Node prev=null;
     static Node head = null;
     static void convertToDLL(Node root){
@@ -114,6 +116,8 @@ public class createTree {
         }
         convertToDLL(root.right);
     }
+
+    
     static int maxDiameter(Node root){
         if(root==null) return 0;
         int l = maxDiameter(root.left);
@@ -121,6 +125,8 @@ public class createTree {
         int dia = height(root.left) + height(root.right)+1;
         return Math.max(dia, Math.max(l,r));
     }
+
+    
    // static Node prev = null;
     static boolean isValid(Node root){
         if(root== null) return true;
@@ -143,6 +149,8 @@ public class createTree {
 
         return searchBST(root.left,x);
     }
+
+    
     static Node insertBST(Node root, int val){
         if(root==null) return new Node(val);
         if(root.data<val)
@@ -151,6 +159,8 @@ public class createTree {
             root.left = insertBST(root.left,val);
         return root;
     }
+
+    
     static Node deleteNode(Node root, int key) {
         if(root==null) return root;
         if(root.data>key)
@@ -174,12 +184,70 @@ public class createTree {
         }
              return minv;
     }
+
+    
+        static int floorBST(Node root, int key) {
+        int ans = Integer.MAX_VALUE;
+        while(root!=null){
+            if(root.data==key) return root.data;
+            if(root.data>key) root=root.left;
+            else{
+                ans = root.data;
+                root=root.right;
+            }
+        }
+        return ans;
+    }
+
+    
+    static int ceilBST(Node root, int key){
+        int ans = Integer.MIN_VALUE;
+        while(root!=null){
+            if(root.data==key) return root.data;
+            if(root.data<key) root=root.right;
+            else{
+                ans = root.data;
+                root=root.left;
+            }
+        }
+        return ans;
+    }
+
+    
+    static ArrayList <Integer> verticalOrder(Node root)
+    {
+        Map<Integer, ArrayList<Integer>> map = new TreeMap<>();
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(0,root));
+        while(!q.isEmpty()){
+            Pair curr = q.poll();
+            if(map.containsKey(curr.hd)){
+                map.get(curr.hd).add(curr.node.data);
+            }
+            else{
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(curr.node.data);
+                map.put(curr.hd, temp);
+            }
+            if(curr.node.left!=null){
+                q.add(new Pair(curr.hd-1, curr.node.left));
+            }
+            if(curr.node.right!=null){
+                q.add(new Pair(curr.hd+1, curr.node.right));
+            }
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        for(Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()){
+            list.addAll(entry.getValue());
+        }
+        return list;
+    }
     static Scanner sc = null;
     public static void main(String[] args) {
         sc = new Scanner (System.in);
         Node root = createTreee();
-          inOrder(root);
-          System.out.println();
+         // inOrder(root);
+       //   System.out.println();
 //        preOrder(root);
 //        System.out.println();
 //        postOrder(root);
@@ -191,6 +259,12 @@ public class createTree {
 //        System.out.println(bottomView(root));
         //convertToDLL(root);
         //System.out.println(maxDiameter(root));
-        System.out.println(isValid(root));
+        // System.out.println(isValid(root));
+        // System.out.println(searchBST(root,1));
+     //     System.out.println(insertBST(root,6));
+//        System.out.println(floorBST(root,16));
+//        System.out.println(ceilBST(root,25));
+ //       System.out.println(verticalOrder(root));
+    }
     }
 }
