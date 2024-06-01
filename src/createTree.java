@@ -129,6 +129,51 @@ public class createTree {
         prev=root;
         return isValid(root.right);
     }
+    static boolean isValidBST(Node root, int min, int max){
+        if(root==null) return true;
+        if(root.data<=min || root.data>=max) return false;
+        return (isValidBST(root.left,min,root.data) && isValidBST(root.right,root.data,max));
+    }
+
+    static boolean searchBST(Node root, int x){
+        if(root==null) return false;
+        if(root.data==x) return true;
+        if(root.data<x)
+            return searchBST(root.right,x);
+
+        return searchBST(root.left,x);
+    }
+    static Node insertBST(Node root, int val){
+        if(root==null) return new Node(val);
+        if(root.data<val)
+            root.right = insertBST(root.right,val);
+        else if(root.data>val)
+            root.left = insertBST(root.left,val);
+        return root;
+    }
+    static Node deleteNode(Node root, int key) {
+        if(root==null) return root;
+        if(root.data>key)
+            root.left = deleteNode(root.left,key);
+        else if(root.data<key)
+            root.right = deleteNode(root.right,key);
+        else {
+            if(root.left==null) return root.right;
+            else if(root.right==null) return root.left;
+            root.data= minValue(root.right);
+            root.right = deleteNode(root.right,root.data);
+        }
+        return root;
+    }
+    
+    static int minValue(Node root){
+        int minv= root.data;
+        while(root.left!=null){
+            minv = root.left.data;
+            root = root.left;
+        }
+             return minv;
+    }
     static Scanner sc = null;
     public static void main(String[] args) {
         sc = new Scanner (System.in);
